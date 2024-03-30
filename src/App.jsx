@@ -10,13 +10,13 @@ function App() {
   const [newItem, setNewItem] = useState("");
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
-  const [fetchError,setFetchError]=useState(null);
+  const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await fetch(API_URL);
-        if(!response.ok) throw Error('Did not received expected data');
+        if (!response.ok) throw Error("Did not receive expected data");
         const listItems = await response.json();
         console.log(listItems);
         setItems(listItems);
@@ -65,13 +65,18 @@ function App() {
         handleSubmit={handleSubmit}
       />
       <SearchItem search={search} setSearch={setSearch} />
-      <Content
-        items={items.filter((item) =>
-          item.item.toLowerCase().includes(search.toLowerCase())
+      <main>
+        {fetchError && <p style={{ color: "red" }}>{`Error:${fetchError}`}</p>}
+        {!fetchError && (
+          <Content
+            items={items.filter((item) =>
+              item.item.toLowerCase().includes(search.toLowerCase())
+            )}
+            handleCheck={handleCheck}
+            handleDelete={handleDelete}
+          />
         )}
-        handleCheck={handleCheck}
-        handleDelete={handleDelete}
-      />
+      </main>
       <Footer length={items.length} />
     </div>
   );
