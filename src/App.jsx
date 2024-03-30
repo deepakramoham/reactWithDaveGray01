@@ -8,34 +8,33 @@ import { useState, useEffect } from "react";
 function App() {
   const [newItem, setNewItem] = useState("");
   const [search, setSearch] = useState("");
-  const [items, setItems] = useState([]);
-  useEffect(() => {
-    setItems(JSON.parse(localStorage.getItem("shoppinglist")));
-  }, []);
-  const setAndSaveItems = (newItems) => {
-    setItems(newItems);
-    localStorage.setItem("shoppinglist", JSON.stringify(newItems));
-  };
+  const [items, setItems] = useState(
+    JSON.parse(localStorage.getItem("shoppinglist")) || []
+  );
   //important :- useEffect is asynchronous
-
-
+  //KeyBoard Shortcuts:-
+  // control + D -> for selecting multiple instances.
+  // control+shift+L -> to selecting each instances one by one.
+  useEffect(() => {
+    localStorage.setItem("shoppinglist", JSON.stringify(items));
+  }, [items]);
 
   const addItem = (item) => {
     const id = items.length ? items[items.length - 1].id + 1 : 1;
     const myNewItem = { id, checked: false, item };
     const listItems = [...items, myNewItem];
-    setAndSaveItems(listItems);
+    setItems(listItems);
   };
   const handleCheck = (id) => {
     const listItems = items.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
     );
-    setAndSaveItems(listItems);
+    setItems(listItems);
   };
 
   const handleDelete = (id) => {
     const listItems = items.filter((item) => item.id != id);
-    setAndSaveItems(listItems);
+    setItems(listItems);
   };
   const handleSubmit = (e) => {
     e.preventDefault(); /* this is done to prevent the page reload while the form  submission */
