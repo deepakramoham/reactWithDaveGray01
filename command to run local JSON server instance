@@ -1,0 +1,19 @@
+npx json-server -p 3500 -w data/db.json
+
+expected output:-
+
+--watch/-w can be omitted, JSON Server 1+ watches for file changes by default
+JSON Server started on PORT :3500
+Press CTRL-C to stop
+Watching data/db.json...
+
+( ˶ˆ ᗜ ˆ˵ )
+
+Index:
+http://localhost:3500/
+
+Static files:
+Serving ./public directory if it exists
+
+Endpoints:
+http://localhost:3500/items
