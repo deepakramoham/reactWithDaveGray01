@@ -1,0 +1,10 @@
+
+Important point and Notes from JSON server API
+
+1. All keys must be in quotes
+2. Between each JSON object there is a coma
+3. Integer, Boolean need not be in quotes
+4. String must be in quotes
+5. Items is an array and it is an object array, items inside the array are objects
+6. Items in also in quotes
+7. Over all it is an object/JSON object.

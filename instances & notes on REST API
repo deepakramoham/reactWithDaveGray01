@@ -1,0 +1,26 @@
+
+
+used Command :
+   npx json-server -p 3500 -w data/db.json
+   to set up JSON rest API.
+   db.json is in the data folder 
+   data fetching happened from http://localhost:3500/items
+   json server code ran in git bash. It can be done in termianl also.
+
+   lenovo@LAPTOP-RO1N9G1U MINGW64 /d/react/reactWithDaveGray (master)
+$ npx json-server -p 3500 -w data/db.json
+--watch/-w can be omitted, JSON Server 1+ watches for file changes by default
+JSON Server started on PORT :3500
+Press CTRL-C to stop
+Watching data/db.json...
+
+♡⸜(˶˃ ᵕ ˂˶)⸝♡
+
+Index:
+http://localhost:3500/
+
+Static files:
+Serving ./public directory if it exists
+
+Endpoints:
+http://localhost:3500/items

@@ -6,18 +6,29 @@ import Footer from "./components/Footer";
 import { useState, useEffect } from "react";
 
 function App() {
+  const API_URL = "http://localhost:3500/items";
   const [newItem, setNewItem] = useState("");
   const [search, setSearch] = useState("");
-  const [items, setItems] = useState(
-    JSON.parse(localStorage.getItem("shoppinglist")) || []
-  );
+  const [items, setItems] = useState([]);
   //important :- useEffect is asynchronous
   //KeyBoard Shortcuts:-
   // control + D -> for selecting multiple instances.
   // control+shift+L -> to selecting each instances one by one.
   useEffect(() => {
-    localStorage.setItem("shoppinglist", JSON.stringify(items));
-  }, [items]);
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(API_URL);
+        const listItems = await response.json();
+        console.log(listItems);
+        setItems(listItems);
+      } catch (err) {
+        console.log(err.stack);
+      }
+    };
+    (async () => await fetchItems())();
+    //fetchItems does not return a value. Therefore, this async IIFE (instantly invoked function expression) is not required.
+    //You can just make a call to fetchItems()
+  }, []);
 
   const addItem = (item) => {
     const id = items.length ? items[items.length - 1].id + 1 : 1;
