@@ -6,23 +6,25 @@ import Footer from "./components/Footer";
 import { useState, useEffect } from "react";
 
 function App() {
-  const API_URL = "http://localhost:3500/items";
+  const API_URL = "http://localhost:3500/itemss"; //error handling with wrong address
   const [newItem, setNewItem] = useState("");
   const [search, setSearch] = useState("");
   const [items, setItems] = useState([]);
-  //important :- useEffect is asynchronous
-  //KeyBoard Shortcuts:-
-  // control + D -> for selecting multiple instances.
-  // control+shift+L -> to selecting each instances one by one.
+  const [fetchError,setFetchError]=useState(null);
+
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await fetch(API_URL);
+        if(!response.ok) throw Error('Did not received expected data');
         const listItems = await response.json();
         console.log(listItems);
         setItems(listItems);
+        setFetchError(null);
       } catch (err) {
+        console.log(err.message);
         console.log(err.stack);
+        setFetchError(err.message);
       }
     };
     (async () => await fetchItems())();
